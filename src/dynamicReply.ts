@@ -60,9 +60,9 @@ function analyzeIntent(
     text: string,
 ): 'deep_sad' | 'sad' | 'work' | 'encourage' | 'greeting' | 'poem' | 'ghost' | 'zhongli' | 'unknown' {
     const lower = text.toLowerCase();
-    if (POEM_KEYWORDS.some((k) => lower.includes(k))) {return 'poem';}
-    if (GHOST_KEYWORDS.some((k) => lower.includes(k))) {return 'ghost';}
-    if (ZHONGLI_KEYWORDS.some((k) => lower.includes(k))) {return 'zhongli';}
+    if (POEM_KEYWORDS.some((k) => lower.includes(k))) { return 'poem'; }
+    if (GHOST_KEYWORDS.some((k) => lower.includes(k))) { return 'ghost'; }
+    if (ZHONGLI_KEYWORDS.some((k) => lower.includes(k))) { return 'zhongli'; }
     if (DEEP_SAD_KEYWORDS.some((k) => lower.includes(k))) { return 'deep_sad'; }
     if (SAD_KEYWORDS.some((k) => lower.includes(k))) { return 'sad'; }
     if (ENCOURAGEMENT_KEYWORDS.some((k) => lower.includes(k))) { return 'encourage'; }

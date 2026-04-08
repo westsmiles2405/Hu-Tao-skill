@@ -4,13 +4,14 @@
 
 import * as vscode from 'vscode';
 
+export type PomodoroPhase = 'focus-end' | 'break-start' | 'break-end';
+
 export class PomodoroTimer {
     private timer?: ReturnType<typeof setInterval>;
     private remaining = 0;
     private statusBarItem: vscode.StatusBarItem;
     private isBreak = false;
     private completed = 0;
-    private onComplete?: () => void;
 
     constructor() {
         this.statusBarItem = vscode.window.createStatusBarItem(
@@ -21,14 +22,11 @@ export class PomodoroTimer {
 
     public start(
         minutes: number,
-        onTick: (text: string) => void,
-        onFinish: (isBreak: boolean) => void,
-        onCompleteCallback?: () => void,
+        onPhase: (phase: PomodoroPhase) => void,
     ): void {
         this.stop();
         this.remaining = minutes * 60;
         this.isBreak = false;
-        this.onComplete = onCompleteCallback;
 
         const config = vscode.workspace.getConfiguration('hutao');
         const showStatus = config.get<boolean>('enableStatusBar', true);
@@ -42,20 +40,19 @@ export class PomodoroTimer {
             const display = this.formatTime(this.remaining);
             const prefix = this.isBreak ? '🦋 休息' : '🔥 专注';
             this.statusBarItem.text = `${prefix} ${display}`;
-            onTick(`${prefix} ${display}`);
 
             if (this.remaining <= 0) {
                 if (this.isBreak) {
                     this.stop();
-                    this.onComplete?.();
-                    onFinish(true);
+                    onPhase('break-end');
                     return;
                 }
                 this.completed++;
-                onFinish(false);
+                onPhase('focus-end');
                 const breakMins = config.get<number>('breakMinutes', 5);
                 this.remaining = breakMins * 60;
                 this.isBreak = true;
+                onPhase('break-start');
             }
         }, 1000);
     }

@@ -15,6 +15,7 @@ import {
     getFocusStart,
     getFocusEnd,
     getBreakRemind,
+    getBreakEnd,
     getFinale,
     getIdleRemind,
     getTimeBasedGreeting,
@@ -119,22 +120,28 @@ export function activate(context: vscode.ExtensionContext): void {
             const minutes = config.get<number>('pomodoroMinutes', 25);
             panel.addBotMessage(getFocusStart(minutes));
 
-            pomodoro.start(
-                minutes,
-                () => { },
-                (isBreak) => {
-                    if (isBreak) {
-                        panel.addBotMessage(getBreakRemind());
-                    } else {
+            pomodoro.start(minutes, (phase) => {
+                switch (phase) {
+                    case 'focus-end':
                         panel.addBotMessage(getFocusEnd());
                         stats.recordPomodoro();
                         panel.updateStats(stats.current);
-                    }
-                },
-            );
+                        break;
+                    case 'break-start':
+                        panel.addBotMessage(getBreakRemind());
+                        break;
+                    case 'break-end':
+                        panel.addBotMessage(getBreakEnd());
+                        break;
+                }
+            });
         }),
 
         vscode.commands.registerCommand('hutao.stopPomodoro', () => {
+            if (!pomodoro.isRunning) {
+                panel.addBotMessage('诶？番茄钟还没开始呢~要不要先启动一个？');
+                return;
+            }
             pomodoro.stop();
             panel.addBotMessage('番茄钟已经停啦~本堂主给你记上了！');
         }),
@@ -158,12 +165,14 @@ export function activate(context: vscode.ExtensionContext): void {
                     }
                 }
             }
+            const totalErrors = issues.length;
+            const topIssues = issues.slice(0, 10);
             if (issues.length > 10) {
-                issues.splice(10, issues.length - 10, `……以及另外 ${issues.length - 10} 项问题。`);
+                topIssues.push(`……以及另外 ${issues.length - 10} 项问题。`);
             }
-            panel.addBotMessage(getJudgment(issues));
+            panel.addBotMessage(getJudgment(topIssues));
             vscode.window.showInformationMessage(
-                `🦋 胡桃送葬式审判：发现 ${issues.length} 项错误`,
+                `🦋 胡桃送葬式审判：发现 ${totalErrors} 项错误`,
             );
         }),
 
@@ -202,6 +211,9 @@ export function activate(context: vscode.ExtensionContext): void {
     // ── 编辑事件 → 重置闲置 ──────────────────────────
     context.subscriptions.push(
         vscode.workspace.onDidChangeTextDocument(() => {
+            idleWatcher.reset();
+        }),
+        vscode.window.onDidChangeActiveTextEditor(() => {
             idleWatcher.reset();
         }),
     );
