@@ -1,0 +1,131 @@
+{
+    "name": "hutao-companion",
+    "displayName": "胡桃工作陪伴",
+    "description": "让往生堂第77代堂主胡桃陪伴你的 VS Code 编程之旅——鬼灵精怪的陪工、番茄钟、送葬式代码审判、生死哲学安慰",
+    "version": "0.1.0",
+    "publisher": "hutao-studio",
+    "license": "MIT",
+    "icon": "media/hutao-icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/westsmiles2405/Hutao-skill.git"
+    },
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "hutao-companion",
+                    "title": "胡桃",
+                    "icon": "media/hutao-icon.svg"
+                }
+            ]
+        },
+        "views": {
+            "hutao-companion": [
+                {
+                    "type": "webview",
+                    "id": "hutao.chatPanel",
+                    "name": "胡桃的往生堂"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "hutao.openStage",
+                "title": "胡桃：开启今日往生堂",
+                "category": "HuTao"
+            },
+            {
+                "command": "hutao.startPomodoro",
+                "title": "胡桃：开始番茄钟专注",
+                "category": "HuTao"
+            },
+            {
+                "command": "hutao.stopPomodoro",
+                "title": "胡桃：结束番茄钟",
+                "category": "HuTao"
+            },
+            {
+                "command": "hutao.encourageMe",
+                "title": "胡桃：给我打气",
+                "category": "HuTao"
+            },
+            {
+                "command": "hutao.reviewWork",
+                "title": "胡桃：送葬式审判代码",
+                "category": "HuTao"
+            },
+            {
+                "command": "hutao.finale",
+                "title": "胡桃：今日收工",
+                "category": "HuTao"
+            },
+            {
+                "command": "hutao.poem",
+                "title": "胡桃：即兴赋诗",
+                "category": "HuTao"
+            },
+            {
+                "command": "hutao.ghostStory",
+                "title": "胡桃：讲个鬼故事",
+                "category": "HuTao"
+            },
+            {
+                "command": "hutao.zhongli",
+                "title": "胡桃：聊聊钟离先生",
+                "category": "HuTao"
+            }
+        ],
+        "configuration": {
+            "title": "胡桃工作陪伴",
+            "properties": {
+                "hutao.pomodoroMinutes": {
+                    "type": "number",
+                    "default": 25,
+                    "description": "番茄钟专注时长（分钟）"
+                },
+                "hutao.breakMinutes": {
+                    "type": "number",
+                    "default": 5,
+                    "description": "休息时长（分钟）"
+                },
+                "hutao.enableIdleReminder": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "是否在长时间未操作时提醒"
+                },
+                "hutao.idleMinutes": {
+                    "type": "number",
+                    "default": 30,
+                    "description": "闲置多少分钟后提醒"
+                },
+                "hutao.enableStatusBar": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "是否在状态栏显示胡桃"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "lint": "eslint src --ext ts"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.0",
+        "@types/vscode": "^1.85.0",
+        "typescript": "^5.3.3"
+    }
+}

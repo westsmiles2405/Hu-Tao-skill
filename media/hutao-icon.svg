@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#c62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Butterfly body -->
+  <line x1="12" y1="7" x2="12" y2="17"/>
+  <!-- Left wing -->
+  <path d="M12 10 Q7 6 6 10 Q5 14 12 13" fill="rgba(198,40,40,0.2)"/>
+  <!-- Right wing -->
+  <path d="M12 10 Q17 6 18 10 Q19 14 12 13" fill="rgba(244,143,177,0.2)"/>
+  <!-- Antennae -->
+  <path d="M12 7 Q10 4 8 3"/>
+  <path d="M12 7 Q14 4 16 3"/>
+  <!-- Small flame accent -->
+  <path d="M12 17 Q11 20 12 22 Q13 20 12 17" fill="rgba(198,40,40,0.4)" stroke="none"/>
+</svg>
