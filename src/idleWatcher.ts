@@ -6,10 +6,8 @@ import * as vscode from 'vscode';
 
 export class IdleWatcher {
     private timer?: ReturnType<typeof setTimeout>;
-    private onIdle: () => void;
 
-    constructor(onIdle: () => void) {
-        this.onIdle = onIdle;
+    constructor(private readonly onIdle: () => void) {
         this.reset();
     }
 

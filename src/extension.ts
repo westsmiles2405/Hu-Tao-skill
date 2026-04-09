@@ -94,7 +94,7 @@ export function activate(context: vscode.ExtensionContext): void {
                 }, 2500);
             }, 2000);
         }, 1500);
-        context.globalState.update('hutao.welcomed', true);
+        void context.globalState.update('hutao.welcomed', true);
     } else {
         panel.addBotMessage(getTimeBasedGreeting());
     }
@@ -108,7 +108,7 @@ export function activate(context: vscode.ExtensionContext): void {
             const msg = getOpening();
             panel.addBotMessage(msg);
             panel.addBotMessage(getTimeBasedGreeting());
-            vscode.window.showInformationMessage(`🦋 胡桃：${msg}`);
+            void vscode.window.showInformationMessage(`🦋 胡桃：${msg}`);
         }),
 
         vscode.commands.registerCommand('hutao.startPomodoro', () => {
@@ -149,7 +149,7 @@ export function activate(context: vscode.ExtensionContext): void {
         vscode.commands.registerCommand('hutao.encourageMe', () => {
             const msg = getEncourageLine();
             panel.addBotMessage(msg);
-            vscode.window.showInformationMessage(`🦋 胡桃：${msg}`);
+            void vscode.window.showInformationMessage(`🦋 胡桃：${msg}`);
         }),
 
         vscode.commands.registerCommand('hutao.reviewWork', () => {
@@ -171,7 +171,7 @@ export function activate(context: vscode.ExtensionContext): void {
                 topIssues.push(`……以及另外 ${issues.length - 10} 项问题。`);
             }
             panel.addBotMessage(getJudgment(topIssues));
-            vscode.window.showInformationMessage(
+            void vscode.window.showInformationMessage(
                 `🦋 胡桃送葬式审判：发现 ${totalErrors} 项错误`,
             );
         }),
@@ -180,7 +180,7 @@ export function activate(context: vscode.ExtensionContext): void {
             const msg = getFinale(pomodoro.completedCount);
             panel.addBotMessage(msg);
             pomodoro.stop();
-            vscode.window.showInformationMessage(`🦋 胡桃：${msg}`);
+            void vscode.window.showInformationMessage(`🦋 胡桃：${msg}`);
         }),
 
         vscode.commands.registerCommand('hutao.poem', () => {

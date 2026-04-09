@@ -47,7 +47,7 @@ export class StatsTracker {
     }
 
     private persist(): void {
-        this.state.update(StatsTracker.KEY, this.stats);
+        void this.state.update(StatsTracker.KEY, this.stats);
     }
 
     public recordPomodoro(): void {
