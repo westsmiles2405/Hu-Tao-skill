@@ -104,10 +104,10 @@ export class HutaoChatPanel implements vscode.WebviewViewProvider {
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <style nonce="${nonce}">
 :root {
-  --primary: #c62828;
-  --primary-light: #ef5350;
-  --accent: #f48fb1;
-  --ghost: #4db6ac;
+  --hutao-red: #c62828;
+  --hutao-red-light: #ef5350;
+  --hutao-pink: #f48fb1;
+  --hutao-teal: #4db6ac;
   --bg: var(--vscode-sideBar-background, #1e1e1e);
   --fg: var(--vscode-sideBar-foreground, #cccccc);
   --input-bg: var(--vscode-input-background, #3c3c3c);
@@ -123,9 +123,9 @@ body {
 }
 #header {
   text-align: center; padding: 10px 8px 6px;
-  border-bottom: 2px solid var(--primary);
+  border-bottom: 2px solid var(--hutao-red);
 }
-#header h2 { font-size: 15px; color: var(--primary-light); }
+#header h2 { font-size: 15px; color: var(--hutao-red-light); }
 #header small { font-size: 11px; opacity: 0.6; }
 #stats-bar {
   display: flex; justify-content: space-around;
@@ -147,20 +147,20 @@ body {
   display: flex; align-items: center; justify-content: center;
   font-size: 16px; flex-shrink: 0;
 }
-.msg.hutao .avatar { background: var(--primary); }
-.msg.user  .avatar { background: var(--ghost); }
+.msg.hutao .avatar { background: var(--hutao-red); }
+.msg.user  .avatar { background: var(--hutao-teal); }
 .bubble {
   padding: 6px 10px; border-radius: 10px;
   white-space: pre-wrap; word-break: break-word; line-height: 1.5;
 }
-.msg.hutao .bubble { background: #3b1515; border: 1px solid var(--primary); }
-.msg.user  .bubble { background: #1a3333; border: 1px solid var(--ghost); }
+.msg.hutao .bubble { background: #3b1515; border: 1px solid var(--hutao-red); }
+.msg.user  .bubble { background: #1a3333; border: 1px solid var(--hutao-teal); }
 .name { font-size: 10px; opacity: 0.5; margin-bottom: 2px; }
-.msg.hutao .name { color: var(--accent); }
-.msg.user  .name { color: var(--ghost); text-align: right; }
+.msg.hutao .name { color: var(--hutao-pink); }
+.msg.user  .name { color: var(--hutao-teal); text-align: right; }
 .cursor-blink {
   display: inline-block; width: 2px; height: 1em;
-  background: var(--accent); margin-left: 1px;
+  background: var(--hutao-pink); margin-left: 1px;
   animation: blink 0.6s step-end infinite;
   vertical-align: text-bottom;
 }
@@ -176,11 +176,11 @@ body {
   padding: 5px 8px; outline: none; font-size: 13px;
 }
 #input-area button {
-  background: var(--primary); border: none; color: #fff;
+  background: var(--hutao-red); border: none; color: #fff;
   padding: 5px 12px; border-radius: 4px; cursor: pointer;
   font-size: 13px;
 }
-#input-area button:hover { background: var(--primary-light); }
+#input-area button:hover { background: var(--hutao-red-light); }
 </style>
 </head>
 <body>
